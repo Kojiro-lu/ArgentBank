@@ -1,4 +1,4 @@
-import features from "../../Data/features.json";
+import features from "../../data/features.json";
 import Feature from "../../components/Feature/Feature";
 import "./FeaturesSection.scss";
 
