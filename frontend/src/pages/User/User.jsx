@@ -1,5 +1,12 @@
-function Profile() {
-  return <h1>Profil</h1>;
+import Account from "../../components/Account/Account";
+import "./SignIn.scss";
+
+function User() {
+  return (
+    <>
+      <Account />
+    </>
+  );
 }
 
-export default Profile;
+export default User;
