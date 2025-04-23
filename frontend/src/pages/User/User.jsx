@@ -1,11 +1,10 @@
 import Account from "../../components/Account/Account";
-import "./SignIn.scss";
 
 function User() {
   return (
-    <>
+    <main className="bg-dark">
       <Account />
-    </>
+    </main>
   );
 }
 
