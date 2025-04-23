@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import SignIn from "./pages/SignIn/SignIn";
 import User from "./pages/User/User";
 import Footer from "./components/Footer/Footer";
+import PrivateRoute from "../src/components/PrivateRoute/PrivateRoute";
 
 function App() {
   return (

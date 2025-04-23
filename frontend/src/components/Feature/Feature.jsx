@@ -1,6 +1,6 @@
 import "./Feature.scss";
 
-const Feature = ({ icon, title, description }) => {
+function Feature({ icon, title, description }) {
   return (
     <div className="feature-item">
       <img src={icon} alt={`${title} Icon`} className="feature-icon" />
@@ -8,6 +8,6 @@ const Feature = ({ icon, title, description }) => {
       <p>{description}</p>
     </div>
   );
-};
+}
 
 export default Feature;
