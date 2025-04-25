@@ -17,9 +17,8 @@ export const loginUser = createAsyncThunk(
 
       if (response.ok) {
         const token = data.body.token;
-        // Sauvegarder le token dans le localStorage
         localStorage.setItem("token", token);
-        return { token }; // retourner le token
+        return { token };
       } else {
         return thunkAPI.rejectWithValue(data.message);
       }
@@ -32,20 +31,17 @@ export const loginUser = createAsyncThunk(
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    token: localStorage.getItem("token") || null, // Charger le token du localStorage
+    token: localStorage.getItem("token") || null,
     userInfo: null,
-    isLoggedIn: !!localStorage.getItem("token"), // Vérifier si un token est présent
-    status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
+    isLoggedIn: !!localStorage.getItem("token"),
     error: null,
   },
   reducers: {
     logout: (state) => {
-      // Supprimer le token du localStorage lors de la déconnexion
       localStorage.removeItem("token");
       state.token = null;
       state.userInfo = null;
       state.isLoggedIn = false;
-      state.status = "idle";
       state.error = null;
     },
     setUserInfo: (state, action) => {
@@ -54,17 +50,12 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.pending, (state) => {
-        state.status = "loading";
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
         state.error = null;
       })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.token = action.payload.token; // Stocke le token dans le state
-        state.isLoggedIn = true; // L'utilisateur est connecté
-        state.status = "succeeded";
-      })
       .addCase(loginUser.rejected, (state, action) => {
-        state.status = "failed";
         state.error = action.payload;
       });
   },

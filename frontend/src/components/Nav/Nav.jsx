@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/userSlice";
-import logo from "../../assets/images/argentBankLogo.png";
+import logo from "../../assets/images/argentBankLogo.webp";
 import "./Nav.scss";
 
 function Nav() {
@@ -26,18 +26,14 @@ function Nav() {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
 
-      <div>
+      <div className={isLoggedIn ? "main-nav-logged" : ""}>
         {isLoggedIn ? (
           <>
-            <Link className="main-nav-item" to="/user">
+            <Link className="main-nav-item-name" to="/user">
               <i className="fa fa-user-circle"></i>
-              {userInfo?.firstName || "Toto"}
+              {userInfo?.firstName || "Tony"}
             </Link>
-            <button
-              className="main-nav-item"
-              onClick={handleLogout}
-              style={{ background: "none", border: "none", cursor: "pointer" }}
-            >
+            <button className="main-nav-item-button" onClick={handleLogout}>
               <i className="fa fa-sign-out"></i>
               Sign Out
             </button>
