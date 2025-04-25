@@ -15,15 +15,25 @@ export const loginUser = createAsyncThunk(
 
       const data = await response.json();
 
-      if (response.ok) {
-        const token = data.body.token;
-        localStorage.setItem("token", token);
-        return { token };
-      } else {
-        return thunkAPI.rejectWithValue(data.message);
+      if (!response.ok) {
+        let errorMessage = "Une erreur s'est produite. Veuillez réessayer.";
+
+        if (data.message?.includes("Password is invalid")) {
+          errorMessage = "Mot de passe incorrect. Veuillez réessayer.";
+        } else if (data.message?.includes("User not found")) {
+          errorMessage = "Adresse e-mail inconnue. Vérifiez votre saisie.";
+        }
+
+        return thunkAPI.rejectWithValue(errorMessage);
       }
+
+      const token = data.body.token;
+      localStorage.setItem("token", token);
+      return { token };
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(
+        "Erreur réseau. Vérifiez votre connexion."
+      );
     }
   }
 );
@@ -56,7 +66,7 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.error = action.payload;
+        state.error = action.payload || "Une erreur est survenue";
       });
   },
 });
