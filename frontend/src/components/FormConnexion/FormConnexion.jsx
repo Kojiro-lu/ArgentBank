@@ -1,7 +1,7 @@
 import "./FormConnexion.scss";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../store/userSlice";
+import { loginUser } from "../../store/UserSlice";
 import { useNavigate } from "react-router-dom";
 
 function FormConnexion() {

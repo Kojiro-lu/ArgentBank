@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../store/userSlice";
+import { logout } from "../../store/UserSlice";
 import logo from "../../assets/images/argentBankLogo.webp";
 import "./Nav.scss";
 
