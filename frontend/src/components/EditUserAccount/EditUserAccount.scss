@@ -1,0 +1,43 @@
+.edit-form {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-form-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 500px;
+  background-color: white;
+  padding: 15px;
+}
+
+.input-wrapper-form {
+  display: flex;
+  gap: 20px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.save-button,
+.cancel-button {
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 10px;
+  width: 8rem;
+  cursor: pointer;
+  background-color: #00bc77;
+  color: white;
+}

@@ -16,26 +16,3 @@
   justify-content: center;
   gap: 20px;
 }
-
-.edit-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-.input-wrapper-form {
-  display: flex;
-  gap: 20px;
-}
-
-.save-button,
-.cancel-button {
-  border: none;
-  background-color: #00bc77;
-  border-radius: 5px;
-  padding: 10px 20px;
-  color: white;
-  font-weight: bold;
-}

@@ -1,10 +1,27 @@
+import { useState } from "react";
 import "./Account.scss";
 import UserAccount from "../UserAccount/UserAccount";
+import EditUserAccount from "../EditUserAccount/EditUserAccount";
 
 function Account() {
+  const [isEditing, setIsEditing] = useState(false); // État pour gérer l'édition du nom d'utilisateur
+
+  const handleEdit = () => {
+    setIsEditing(true); // Lors de l'édition, passer en mode édition
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false); // Lors de l'annulation, revenir en mode affichage
+  };
+
   return (
     <>
-      <UserAccount />
+      {/* Afficher soit UserAccount soit EditUserAccount en fonction de l'état */}
+      {isEditing ? (
+        <EditUserAccount onCancel={handleCancel} />
+      ) : (
+        <UserAccount onEdit={handleEdit} />
+      )}
 
       <h2 className="sr-only">Accounts</h2>
 
