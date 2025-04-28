@@ -38,7 +38,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// Thunk pour récupérer le profil de l'utilisateur (firstName, lastName, userName)
+// Thunk pour récupérer le profil de l'utilisateur
 export const getUserProfile = createAsyncThunk(
   "user/getUserProfile",
   async (_, thunkAPI) => {
@@ -117,14 +117,10 @@ export const updateUserUsername = createAsyncThunk(
     try {
       const token = thunkAPI.getState().user.token;
 
-      // Log du token et du corps de la requête
-      console.log("Token envoyé :", token);
-      console.log("Body envoyé :", { userName: newUsername });
-
       const response = await fetch(
-        "http://localhost:3001/api/v1/user/profile", // URL à adapter si nécessaire
+        "http://localhost:3001/api/v1/user/profile",
         {
-          method: "PUT", // Méthode PUT pour la mise à jour
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -134,7 +130,6 @@ export const updateUserUsername = createAsyncThunk(
       );
 
       const data = await response.json();
-      console.log("Réponse du serveur :", data);
 
       if (!response.ok) {
         return thunkAPI.rejectWithValue(
@@ -195,7 +190,7 @@ const userSlice = createSlice({
       })
       // Mise à jour du nom d'utilisateur
       .addCase(updateUserUsername.fulfilled, (state, action) => {
-        state.userInfo.username = action.payload.username; // Mettre à jour le username dans userInfo
+        state.userInfo.userName = action.payload.userName; // Mettre à jour le username dans userInfo
       })
       .addCase(updateUserUsername.rejected, (state, action) => {
         state.error = action.payload;

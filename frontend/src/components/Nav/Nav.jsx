@@ -31,7 +31,7 @@ function Nav() {
           <>
             <Link className="main-nav-item-name" to="/user">
               <i className="fa fa-user-circle"></i>
-              {userInfo?.firstName || "Tony"}
+              {userInfo?.userName}
             </Link>
             <button className="main-nav-item-button" onClick={handleLogout}>
               <i className="fa fa-sign-out"></i>

@@ -4,21 +4,24 @@ import UserAccount from "../UserAccount/UserAccount";
 import EditUserAccount from "../EditUserAccount/EditUserAccount";
 
 function Account() {
-  const [isEditing, setIsEditing] = useState(false); // État pour gérer l'édition du nom d'utilisateur
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleEdit = () => {
-    setIsEditing(true); // Lors de l'édition, passer en mode édition
+    setIsEditing(true);
   };
 
   const handleCancel = () => {
-    setIsEditing(false); // Lors de l'annulation, revenir en mode affichage
+    setIsEditing(false);
+  };
+
+  const handleSave = () => {
+    setIsEditing(false);
   };
 
   return (
     <>
-      {/* Afficher soit UserAccount soit EditUserAccount en fonction de l'état */}
       {isEditing ? (
-        <EditUserAccount onCancel={handleCancel} />
+        <EditUserAccount onCancel={handleCancel} onSave={handleSave} />
       ) : (
         <UserAccount onEdit={handleEdit} />
       )}

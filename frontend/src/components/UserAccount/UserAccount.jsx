@@ -8,7 +8,6 @@ const UserAccount = ({ onEdit }) => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.userInfo);
 
-  // Charger les données utilisateur dès que le token est disponible
   useEffect(() => {
     if (token) {
       dispatch(getUserProfile());
@@ -29,7 +28,7 @@ const UserAccount = ({ onEdit }) => {
           </button>
         </>
       ) : (
-        <p>Loading...</p> // Affichage si les données ne sont pas encore récupérées
+        <p>Loading...</p>
       )}
     </div>
   );

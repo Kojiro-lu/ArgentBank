@@ -1,22 +1,32 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { updateUserUsername } from "../../store/UserSlice"; // Action pour mettre à jour le nom d'utilisateur
+import { updateUserUsername } from "../../store/UserSlice";
 import "./EditUserAccount.scss";
 
-const EditUserAccount = ({ onCancel }) => {
+const EditUserAccount = ({ onCancel, onSave }) => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.userInfo); // Accès aux infos utilisateur depuis le store
-  const [username, setUsername] = useState(user?.userName || ""); // Valeur initiale venant du store
+  const user = useSelector((state) => state.user.userInfo);
+  const [username, setUsername] = useState(user?.userName || "");
 
   useEffect(() => {
     if (user?.userName) {
-      setUsername(user.userName); // Met à jour le username local si l'utilisateur a changé
+      setUsername(user.userName);
     }
   }, [user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateUserUsername(username)); // Envoie la mise à jour du nom d'utilisateur
+
+    if (!username.trim()) {
+      alert("Le nom d'utilisateur ne peut pas être vide.");
+      return;
+    }
+
+    dispatch(updateUserUsername(username));
+
+    if (onSave) {
+      onSave();
+    }
   };
 
   return (
@@ -29,7 +39,7 @@ const EditUserAccount = ({ onCancel }) => {
             type="text"
             id="username"
             value={username}
-            onChange={(e) => setUsername(e.target.value)} // Met à jour le champ local lors de la saisie
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <div className="input-wrapper-form">
