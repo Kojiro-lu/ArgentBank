@@ -75,41 +75,6 @@ export const getUserProfile = createAsyncThunk(
   }
 );
 
-// Thunk pour mettre à jour le profil de l'utilisateur
-export const updateUserProfile = createAsyncThunk(
-  "user/updateUserProfile",
-  async (userData, thunkAPI) => {
-    try {
-      const token = thunkAPI.getState().user.token;
-
-      const response = await fetch(
-        "http://localhost:3001/api/v1/user/profile",
-        {
-          method: "PUT", // Utilisation de PUT pour la mise à jour
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Ajout du token dans l'en-tête
-          },
-          body: JSON.stringify(userData), // Envoi des données à mettre à jour
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        return thunkAPI.rejectWithValue(
-          data.message || "Erreur lors de la mise à jour du profil."
-        );
-      }
-
-      // Retourner les nouvelles données utilisateur après mise à jour
-      return data.body;
-    } catch (error) {
-      return thunkAPI.rejectWithValue("Erreur réseau.");
-    }
-  }
-);
-
 // Thunk pour mettre à jour le nom d'utilisateur
 export const updateUserUsername = createAsyncThunk(
   "user/updateUserUsername",
@@ -137,7 +102,6 @@ export const updateUserUsername = createAsyncThunk(
         );
       }
 
-      // Retourner les nouvelles données utilisateur après mise à jour
       return data.body;
     } catch (error) {
       return thunkAPI.rejectWithValue("Erreur réseau.");
@@ -181,16 +145,8 @@ const userSlice = createSlice({
       .addCase(getUserProfile.rejected, (state, action) => {
         state.error = action.payload;
       })
-      // Gestion de la mise à jour du profil utilisateur
-      .addCase(updateUserProfile.fulfilled, (state, action) => {
-        state.userInfo = action.payload; // Mettre à jour userInfo avec les nouvelles données
-      })
-      .addCase(updateUserProfile.rejected, (state, action) => {
-        state.error = action.payload;
-      })
-      // Mise à jour du nom d'utilisateur
       .addCase(updateUserUsername.fulfilled, (state, action) => {
-        state.userInfo.userName = action.payload.userName; // Mettre à jour le username dans userInfo
+        state.userInfo.userName = action.payload.userName;
       })
       .addCase(updateUserUsername.rejected, (state, action) => {
         state.error = action.payload;

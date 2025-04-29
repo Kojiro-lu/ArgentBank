@@ -7,33 +7,44 @@ import { useNavigate } from "react-router-dom";
 function FormConnexion() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); // Ajout de l'état errorMessage
+  const [errorMessage, setErrorMessage] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const error = useSelector((state) => state.user.error);
   const token = localStorage.getItem("token");
 
-  // Redirection après une connexion réussie (uniquement si un token est présent)
   useEffect(() => {
     if (token) {
-      navigate("/User"); // Redirige vers la page profil si connecté
+      navigate("/User");
     }
   }, [navigate, token]);
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("email");
+    if (storedEmail) {
+      setEmail(storedEmail);
+      setRememberMe(true);
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser({ email, password }))
       .then((response) => {
         if (response.meta.requestStatus === "fulfilled") {
-          // Si la connexion réussit, rediriger
-          navigate("/User"); // Redirige vers la page profil
+          if (rememberMe) {
+            localStorage.setItem("email", email);
+            localStorage.setItem("token", response.payload.token);
+          } else {
+            localStorage.removeItem("email");
+          }
+          navigate("/User");
         }
       })
       .catch((err) => {
-        // Gérer l'erreur si la connexion échoue
         console.error("Erreur de connexion :", err);
-        // Afficher un message d'erreur à l'utilisateur
         setErrorMessage(
           "Une erreur est survenue lors de la connexion. Veuillez réessayer."
         );
@@ -72,7 +83,12 @@ function FormConnexion() {
             />
           </div>
           <div className="input-remember">
-            <input type="checkbox" id="remember-me" />
+            <input
+              type="checkbox"
+              id="remember-me"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+            />
             <label htmlFor="remember-me">Remember me</label>
           </div>
           <button className="sign-in-button" type="submit">
