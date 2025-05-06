@@ -8,12 +8,6 @@ const EditUserAccount = ({ onCancel, onSave }) => {
   const user = useSelector((state) => state.user.userInfo);
   const [username, setUsername] = useState(user?.userName || "");
 
-  useEffect(() => {
-    if (user?.userName) {
-      setUsername(user.userName);
-    }
-  }, [user]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
