@@ -58,6 +58,12 @@
   font-size: 16px;
 }
 
+@media (max-width: 768px) {
+  .main-nav-item-button {
+    gap: 1px;
+  }
+}
+
 .main-nav-logo {
   display: flex;
   align-items: center;

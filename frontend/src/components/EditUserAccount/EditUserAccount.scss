@@ -17,6 +17,12 @@
   padding: 15px;
 }
 
+@media (max-width: 768px) {
+  .edit-form-menu {
+    width: auto;
+  }
+}
+
 .input-wrapper-form {
   display: flex;
   gap: 20px;
